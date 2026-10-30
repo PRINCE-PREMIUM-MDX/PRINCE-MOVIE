@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="PRINCE MOVIE logo">
+      <defs>
+        <linearGradient id="logoGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+          <stop offset="0%" stop-color="#ff8a00" />
+          <stop offset="50%" stop-color="#ff3d81" />
+          <stop offset="100%" stop-color="#7b61ff" />
+        </linearGradient>
+      </defs>
+      <rect width="220" height="220" rx="48" fill="#070d18"/>
+      <path d="M52 62v96h30V96l34 62h30V62h-30v58L82 58H52z" fill="url(#logoGradient)"/>
+      <circle cx="150" cy="86" r="18" fill="#fff" opacity="0.95"/>
+      <circle cx="150" cy="86" r="7" fill="#070d18"/>
+      <path d="M150 120c-16 0-30 13-30 29v15h60v-15c0-16-14-29-30-29z" fill="url(#logoGradient)"/>
+    </svg>
+  </body>
+</html>
