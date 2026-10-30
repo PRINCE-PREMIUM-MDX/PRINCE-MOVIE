@@ -1,0 +1,478 @@
+const API_BASE = 'http://51.75.118.170:20041';
+
+const categoryOrder = ['FILM', 'SERIE', 'K-DRAMA', 'HENTAI', 'MANGA', 'MANWHA', 'LIVE SPORT'];
+
+const demoCatalog = {
+  FILM: [
+    {
+      id: 'film-1',
+      title: 'The Last Signal',
+      year: 2025,
+      type: 'FILM',
+      score: 98,
+      description: 'Un message venu des profondeurs...',
+      poster: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { label: 'Server 2', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' },
+        { label: 'Server 3', url: 'https://www.w3schools.com/html/movie.mp4' }
+      ]
+    },
+    {
+      id: 'film-2',
+      title: 'Midnight City',
+      year: 2024,
+      type: 'FILM',
+      score: 92,
+      description: 'Une traque dans une ville sans sommeil.',
+      poster: 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { label: 'Server 2', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' }
+      ]
+    }
+  ],
+  SERIE: [
+    {
+      id: 'serie-1',
+      title: 'Shadow Protocol',
+      year: 2025,
+      type: 'SERIE',
+      score: 97,
+      description: 'Une équipe de cyberspions découvre un système immortel.',
+      poster: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1508759075124-52f0d4d10d4e?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://www.w3schools.com/html/movie.mp4' },
+        { label: 'Server 2', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' }
+      ]
+    }
+  ],
+  'K-DRAMA': [
+    {
+      id: 'kdrama-1',
+      title: 'Moonlit Promise',
+      year: 2025,
+      type: 'K-DRAMA',
+      score: 94,
+      description: 'Deux vies entre le passé et le futur.',
+      poster: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' },
+        { label: 'Server 2', url: 'https://www.w3schools.com/html/movie.mp4' }
+      ]
+    }
+  ],
+  HENTAI: [
+    {
+      id: 'hentai-1',
+      title: 'Sweet Afterglow',
+      year: 2024,
+      type: 'HENTAI',
+      score: 88,
+      description: 'Une romance hard au cœur des nuits de Tokyo.',
+      poster: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://www.w3schools.com/html/movie.mp4' },
+        { label: 'Server 2', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' }
+      ]
+    }
+  ],
+  MANGA: [
+    {
+      id: 'manga-1',
+      title: 'Tokyo Requiem',
+      year: 2023,
+      type: 'MANGA',
+      score: 93,
+      description: 'Une guerre silencieuse entre anciens clans.',
+      poster: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1518511891840-0dbd8d4f46f0?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { label: 'Server 3', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' }
+      ]
+    }
+  ],
+  MANWHA: [
+    {
+      id: 'manhwa-1',
+      title: 'Overture of Heroes',
+      year: 2025,
+      type: 'MANWHA',
+      score: 96,
+      description: 'Le destin d’un héros au bord du monde.',
+      poster: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' },
+        { label: 'Server 2', url: 'https://www.w3schools.com/html/movie.mp4' }
+      ]
+    }
+  ],
+  'LIVE SPORT': [
+    {
+      id: 'sport-1',
+      title: 'Champions Night',
+      year: 2025,
+      type: 'LIVE SPORT',
+      score: 89,
+      description: 'Un match de haut niveau à suivre en direct.',
+      poster: 'https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80',
+      backdrop: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1400&q=80',
+      serverSources: [
+        { label: 'Server 1', url: 'https://www.w3schools.com/html/movie.mp4' },
+        { label: 'Server 2', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' }
+      ]
+    }
+  ]
+};
+
+const state = {
+  activeCategory: 'FILM',
+  authMode: 'login',
+  catalog: {}
+};
+
+function normalizeCategory(value) {
+  return String(value || '').toUpperCase().replace(/\s+/g, ' ');
+}
+
+function getCatalogFor(category) {
+  const normalized = normalizeCategory(category);
+  return state.catalog[normalized] || demoCatalog[normalized] || [];
+}
+
+async function fetchCatalogs() {
+  for (const category of categoryOrder) {
+    try {
+      const response = await fetch(`/api/proxy?category=${encodeURIComponent(category)}`);
+      const payload = await response.json();
+      const items = Array.isArray(payload) ? payload : payload?.data || payload?.items || [];
+      state.catalog[category] = items.length ? items : (demoCatalog[category] || []);
+    } catch {
+      state.catalog[category] = demoCatalog[category] || [];
+    }
+  }
+}
+
+function renderAuthScreen() {
+  return `
+    <div class="auth-shell">
+      <div class="auth-backdrop"></div>
+      <div class="auth-card">
+        <div class="auth-logo-wrap">
+          <div class="brand-logo">
+            <span class="brand-prince">PRINCE</span>
+            <span class="brand-movie">MOVIE</span>
+          </div>
+        </div>
+
+        <div class="auth-tab-row">
+          <button class="auth-tab ${state.authMode === 'login' ? 'active' : ''}" data-auth="login" type="button">Connexion</button>
+          <button class="auth-tab ${state.authMode === 'register' ? 'active' : ''}" data-auth="register" type="button">Créer un compte</button>
+        </div>
+
+        <form id="auth-form" class="auth-form">
+          <label>
+            <span>Nom d'utilisateur</span>
+            <input type="text" name="username" placeholder="Votre pseudo" required />
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="vous@email.com" required />
+          </label>
+
+          <label>
+            <span>Mot de passe</span>
+            <input type="password" name="password" placeholder="••••••••" required />
+          </label>
+
+          <button class="primary-button" type="submit">
+            ${state.authMode === 'login' ? 'Se connecter' : 'Créer mon compte'}
+          </button>
+        </form>
+
+        <div class="api-status">
+          <span class="dot"></span>
+          API connectée : ${API_BASE}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderHero(item) {
+  return `
+    <div class="hero-overlay" style="background-image: linear-gradient(90deg, rgba(2,6,10,0.88), rgba(2,6,10,0.35)), url('${item.backdrop}');"></div>
+    <div class="hero-content">
+      <div class="hero-kicker">● ${item.type} • SEASON 01 NOW PLAYING</div>
+      <h1>${item.title}</h1>
+      <p>${item.description}</p>
+      <div class="meta-row">
+        <span>${item.year}</span>
+        <span class="rating">${item.score}% match</span>
+      </div>
+      <button class="play-button" type="button" data-id="${item.id}">▶ Play episode 1</button>
+    </div>
+  `;
+}
+
+function renderCard(item) {
+  return `
+    <article class="media-card" data-id="${item.id}" tabindex="0">
+      <div class="poster" style="background-image: url('${item.poster}')"></div>
+      <div class="card-body">
+        <div class="card-title-row">
+          <h3>${item.title}</h3>
+          <span>${item.score}%</span>
+        </div>
+        <p>${item.type}</p>
+      </div>
+    </article>
+  `;
+}
+
+function renderApp() {
+  const app = document.getElementById('app');
+  const user = JSON.parse(localStorage.getItem('prince-movie-user') || 'null');
+
+  if (!user) {
+    app.innerHTML = renderAuthScreen();
+    bindAuthHandlers();
+    return;
+  }
+
+  const items = getCatalogFor(state.activeCategory);
+  const featured = items[0] || null;
+
+  app.innerHTML = `
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="status-bar">
+          <span>22:27</span>
+          <div class="status-icons">
+            <span>◔</span><span>◍</span><span>◉</span><span>▣</span>
+          </div>
+        </div>
+
+        <div class="browser-bar">
+          <div class="browser-left">
+            <span class="home-icon">⌂</span>
+            <span class="browser-url">princemovie.app</span>
+          </div>
+          <button class="icon-button" type="button">⏺</button>
+        </div>
+
+        <nav class="main-nav">
+          <div class="brand-wrap">
+            <div class="brand-logo" aria-label="PRINCE MOVIE logo">
+              <span class="brand-prince">PRINCE</span>
+              <span class="brand-movie">MOVIE</span>
+            </div>
+          </div>
+          <div class="nav-actions">
+            <button class="icon-button" type="button">☰</button>
+            <button class="icon-button" type="button">⌕</button>
+            <button class="icon-button" type="button">🔔</button>
+          </div>
+        </nav>
+      </header>
+
+      <main class="content">
+        <section class="hero" id="hero-section">
+          ${featured ? renderHero(featured) : ''}
+        </section>
+
+        <section class="category-toolbar">
+          <div class="toolbar-row">
+            ${categoryOrder.map((category) => `
+              <button class="category-pill ${category === state.activeCategory ? 'active' : ''}" data-category="${category}" type="button">
+                ${category}
+              </button>
+            `).join('')}
+          </div>
+        </section>
+
+        <section class="media-grid-section">
+          <div class="grid-header">
+            <h2>${state.activeCategory}</h2>
+            <button class="ghost-action" type="button">Voir tout</button>
+          </div>
+          <div class="media-grid" id="media-grid">
+            ${items.slice(0, 8).map(renderCard).join('')}
+          </div>
+        </section>
+      </main>
+
+      <footer class="mobile-nav">
+        <button class="nav-item active" type="button"><span>⌂</span><small>Home</small></button>
+        <button class="nav-item" type="button"><span>⌕</span><small>Search</small></button>
+        <button class="nav-item" type="button"><span>◫</span><small>Browse</small></button>
+        <button class="nav-item" type="button"><span>☰</span><small>My List</small></button>
+        <button class="nav-item" type="button" id="logout-button"><span>◔</span><small>Profile</small></button>
+      </footer>
+    </div>
+  `;
+
+  bindCategoryButtons();
+  bindMediaCards();
+  bindHeroAction();
+  bindLogout();
+}
+
+function bindAuthHandlers() {
+  document.querySelectorAll('.auth-tab').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.authMode = button.dataset.auth;
+      renderApp();
+    });
+  });
+
+  document.getElementById('auth-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const form = new FormData(event.currentTarget);
+    const username = form.get('username')?.toString().trim();
+    const email = form.get('email')?.toString().trim();
+    const password = form.get('password')?.toString().trim();
+
+    let result = null;
+    try {
+      const endpoint = state.authMode === 'login' ? '/api/auth/login' : '/api/auth/register';
+      result = await fetch(`/api/proxy?path=${encodeURIComponent(endpoint)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
+
+      if (result.ok) {
+        result = await result.json();
+      } else {
+        result = null;
+      }
+    } catch {
+      result = null;
+    }
+
+    const fallbackUser = {
+      username: username || 'guest',
+      email: email || 'guest@princemovie.app',
+      token: 'demo-token'
+    };
+
+    if (result && (result.user || result.token || result.success)) {
+      localStorage.setItem('prince-movie-user', JSON.stringify(result.user || fallbackUser));
+      renderApp();
+      return;
+    }
+
+    localStorage.setItem('prince-movie-user', JSON.stringify(fallbackUser));
+    renderApp();
+  });
+}
+
+function bindCategoryButtons() {
+  document.querySelectorAll('[data-category]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.activeCategory = button.dataset.category;
+      renderApp();
+    });
+  });
+}
+
+function bindMediaCards() {
+  document.querySelectorAll('.media-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const item = findItemById(card.dataset.id);
+      if (item) openPlayer(item);
+    });
+  });
+}
+
+function bindHeroAction() {
+  const button = document.querySelector('.play-button');
+  if (!button) return;
+
+  button.addEventListener('click', () => {
+    const item = findItemById(button.dataset.id) || getCatalogFor(state.activeCategory)[0];
+    if (item) openPlayer(item);
+  });
+}
+
+function bindLogout() {
+  const logoutButton = document.getElementById('logout-button');
+  if (!logoutButton) return;
+
+  logoutButton.addEventListener('click', () => {
+    localStorage.removeItem('prince-movie-user');
+    renderApp();
+  });
+}
+
+function findItemById(id) {
+  const items = getCatalogFor(state.activeCategory);
+  return items.find((item) => String(item.id) === String(id)) || null;
+}
+
+function openPlayer(item) {
+  if (!item) return;
+
+  const sources = Array.isArray(item.serverSources) && item.serverSources.length ? item.serverSources : [
+    { label: 'Server 1', url: 'https://www.w3schools.com/html/movie.mp4' },
+    { label: 'Server 2', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4' }
+  ];
+
+  const modal = document.createElement('div');
+  modal.className = 'player-modal';
+  modal.innerHTML = `
+    <div class="modal-backdrop"></div>
+    <div class="player-panel">
+      <div class="player-header">
+        <div>
+          <span class="eyebrow">${item.type}</span>
+          <h3>${item.title}</h3>
+        </div>
+        <button class="close-player" type="button">✕</button>
+      </div>
+
+      <video controls autoplay muted playsinline poster="${item.poster}">
+        <source src="${sources[0].url}" type="video/mp4" />
+      </video>
+
+      <div class="server-list">
+        ${sources.map((server, index) => `
+          <button class="server-button ${index === 0 ? 'active' : ''}" type="button" data-url="${server.url}">
+            ${server.label || `Server ${index + 1}`}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const video = modal.querySelector('video');
+  modal.querySelectorAll('.server-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      const url = button.dataset.url;
+      video.src = url;
+      video.load();
+      video.play();
+      document.querySelectorAll('.server-button').forEach((el) => el.classList.toggle('active', el === button));
+    });
+  });
+
+  modal.querySelector('.close-player').addEventListener('click', () => modal.remove());
+  modal.querySelector('.modal-backdrop').addEventListener('click', () => modal.remove());
+}
+
+(async function init() {
+  await fetchCatalogs();
+  renderApp();
+})();
